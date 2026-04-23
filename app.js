@@ -6,6 +6,7 @@
 
 /* ---- State ---- */
 const encFiles = [];
+let decEntries = [];
 
 /* ---- DOM refs ---- */
 const dropZone         = document.getElementById('drop-zone');
@@ -25,6 +26,7 @@ const clearDecBtn      = document.getElementById('clear-dec-btn');
 const decInput         = document.getElementById('dec-input');
 const decStatus        = document.getElementById('dec-status');
 const decFilesEl       = document.getElementById('dec-files');
+const downloadAllBtn   = document.getElementById('download-all-btn');
 const themeToggle      = document.getElementById('theme-toggle');
 
 /* =============================================
@@ -221,6 +223,7 @@ decBtn.addEventListener('click', async () => {
     const entries = JSON.parse(jsonStr);
     if (!Array.isArray(entries) || entries.length === 0) throw new Error('No files found in payload.');
 
+    decEntries = entries; // Store for "Download All"
     let allOk = true;
 
     for (const entry of entries) {
@@ -280,6 +283,8 @@ decBtn.addEventListener('click', async () => {
       : '⚠ ' + entries.length + ' file(s) decoded — some checksums FAILED';
     setStatus(decStatus, msg, allOk ? 'ok' : 'err');
 
+    if (entries.length > 0) downloadAllBtn.style.display = 'inline-flex';
+
   } catch (err) {
     setStatus(decStatus, 'Failed to decode: ' + err.message, 'err');
   }
@@ -296,7 +301,33 @@ decBtn.addEventListener('click', async () => {
 clearDecBtn.addEventListener('click', () => {
   decInput.value = '';
   decFilesEl.innerHTML = '';
+  decEntries = [];
+  downloadAllBtn.style.display = 'none';
   setStatus(decStatus, '');
+});
+
+/* ---- Download all as ZIP ---- */
+downloadAllBtn.addEventListener('click', async () => {
+  if (!decEntries.length || typeof JSZip === 'undefined') return;
+
+  downloadAllBtn.disabled = true;
+  const originalText = downloadAllBtn.innerHTML;
+  downloadAllBtn.textContent = 'Zipping…';
+
+  try {
+    const zip = new JSZip();
+    for (const entry of decEntries) {
+      // Small check to handle duplicate names in zip
+      zip.file(entry.name, entry.data, { base64: true });
+    }
+    const content = await zip.generateAsync({ type: 'blob' });
+    triggerDownload(content, 'bridge_transfer_' + Date.now() + '.zip');
+  } catch (err) {
+    alert('Error creating ZIP: ' + err.message);
+  }
+
+  downloadAllBtn.innerHTML = originalText;
+  downloadAllBtn.disabled = false;
 });
 
 /* ---- Download decoded file ---- */

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>File Transfer — Base64 Bridge</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 
@@ -94,6 +95,10 @@
         <button class="btn btn-primary" id="dec-btn">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M8 12L5 9M8 12l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           Decode &amp; Restore Files
+        </button>
+        <button class="btn btn-ghost" id="download-all-btn" style="display:none;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 11v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2M8 2v9M5 8l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download All (.zip)
         </button>
         <button class="btn btn-ghost" id="clear-dec-btn">Clear</button>
       </div>

@@ -10,7 +10,8 @@ A modern, privacy-first web application for transferring files through plain tex
 
 - **Multi-File Encoding**: Pack multiple files into a single text payload effortlessly.
 - **SHA-256 Integrity**: Every file is checksum-verified upon decoding to ensure zero corruption.
-- **Air-Gapped Ready**: Perfect for transferring files to/from locked-down environments (production servers, VMs, air-gapped machines) via copy-paste.
+- **One-Click ZIP Restore**: Download all decoded files at once as a compressed `.zip` archive.
+- **Air-Gapped Ready**: Perfect for transferring files to/from locked-down environments via copy-paste.
 - **Privacy First**: 100% Client-side. Your files never leave your browser. No analytics, no server uploads.
 - **Modern UI**: Dark-mode aesthetic with a responsive, grid-based layout and smooth animations.
 
