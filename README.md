@@ -2,6 +2,8 @@
 
 A modern, privacy-first web application for transferring files through plain text. No network overhead, no cloud storage—just pure Base64 encoding with SHA-256 integrity verification.
 
+### 🌐 [Live Demo](https://ibrezm1.github.io/base64-bridge/)
+
 ![B64 Bridge Banner](https://raw.githubusercontent.com/placeholder-path/b64-bridge/main/docs/banner.png)
 
 ## 🚀 Key Features
