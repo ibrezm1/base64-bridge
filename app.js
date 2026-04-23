@@ -25,6 +25,19 @@ const clearDecBtn      = document.getElementById('clear-dec-btn');
 const decInput         = document.getElementById('dec-input');
 const decStatus        = document.getElementById('dec-status');
 const decFilesEl       = document.getElementById('dec-files');
+const themeToggle      = document.getElementById('theme-toggle');
+
+/* =============================================
+   Theme management
+   ============================================= */
+const currentTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+themeToggle.addEventListener('click', () => {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+});
 
 /* =============================================
    SHA-256 via Web Crypto API
