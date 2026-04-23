@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Transfer — Base64 Bridge</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">&#9650;</span>
+      <span class="logo-text">B64 Bridge</span>
+    </div>
+    <p class="tagline">Transfer files through text — no network needed</p>
+  </header>
+
+  <main>
+    <div class="tab-bar">
+      <button class="tab active" data-tab="encode">
+        <span class="tab-num">01</span>
+        <span class="tab-label">Encode</span>
+        <span class="tab-sub">Source machine</span>
+      </button>
+      <div class="tab-divider">&#8594;</div>
+      <button class="tab" data-tab="decode">
+        <span class="tab-num">02</span>
+        <span class="tab-label">Decode</span>
+        <span class="tab-sub">Destination machine</span>
+      </button>
+    </div>
+
+    <!-- ENCODE PANEL -->
+    <div class="panel active" id="panel-encode">
+      <div class="drop-zone" id="drop-zone">
+        <input type="file" id="enc-file-input" multiple hidden />
+        <div class="drop-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 28V12M20 12L13 19M20 12L27 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 30h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="drop-title">Drop files here</p>
+        <p class="drop-sub">or <span class="drop-link">browse files</span> — multiple supported</p>
+      </div>
+
+      <div class="file-list" id="file-list"></div>
+
+      <div class="action-row" id="enc-actions" style="display:none;">
+        <button class="btn btn-primary" id="enc-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Encode Files
+        </button>
+        <button class="btn btn-ghost" id="clear-enc-btn">Clear all</button>
+      </div>
+
+      <div class="output-section" id="enc-output-area" style="display:none;">
+        <div class="output-header">
+          <label class="output-label">Encoded Payload</label>
+          <span class="output-hint">Copy this text and paste it on the destination machine</span>
+        </div>
+        <textarea class="output-box" id="enc-output" readonly spellcheck="false"></textarea>
+        <div class="output-actions">
+          <button class="btn btn-primary" id="copy-btn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 11V3h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Copy All
+          </button>
+          <button class="btn btn-ghost" id="download-payload-btn">Save as .txt</button>
+          <span class="status-msg" id="enc-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECODE PANEL -->
+    <div class="panel" id="panel-decode">
+      <div class="output-section">
+        <div class="output-header">
+          <label class="output-label">Paste Payload Here</label>
+          <span class="output-hint">Paste the full encoded text from the source machine</span>
+        </div>
+        <textarea class="output-box" id="dec-input" placeholder="Paste your B64PACK:... text here..." spellcheck="false"></textarea>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="dec-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 4v8M8 12L5 9M8 12l3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Decode &amp; Restore Files
+        </button>
+        <button class="btn btn-ghost" id="clear-dec-btn">Clear</button>
+      </div>
+
+      <span class="status-msg" id="dec-status"></span>
+
+      <div class="dec-files" id="dec-files"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Everything runs in your browser &mdash; no files are uploaded to any server.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
